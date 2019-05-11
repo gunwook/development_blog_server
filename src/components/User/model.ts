@@ -29,6 +29,15 @@ export interface IUserModel extends Document {
     gravatar: (size: number) => string;
 }
 
+/**
+ *  회원 가입에 필요한 type
+ */
+export type SignUp = {
+    name : string,
+    password : string,
+    email : string
+} 
+
 export type AuthToken = {
     accessToken: string,
     kind: string

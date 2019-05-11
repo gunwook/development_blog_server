@@ -1,4 +1,4 @@
-import { IUserModel } from '../User/model';
+import { IUserModel, SignUp } from '../User/model';
 
 /**
  * @export
@@ -6,9 +6,9 @@ import { IUserModel } from '../User/model';
  */
 export interface IAuthService {
     /**
-     * @param {IUserModel} IUserModel
+     * @param {SignUp} SignUp
      * @returns {Promise<IUserModel>}
      * @memberof AuthService
      */
-    createUser(IUserModel: IUserModel): Promise < IUserModel > ;
+    createUser(signUp: SignUp): Promise < IUserModel > ;
 }

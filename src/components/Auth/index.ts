@@ -3,6 +3,7 @@ import AuthService from './service';
 import HttpError from '../../config/error';
 import { IUserModel } from '../User/model';
 import { NextFunction, Request, Response } from 'express';
+import { logger } from '../../config/utils/logger';
 /**
  * 
  * @param {Request} req 
@@ -32,10 +33,12 @@ function passportRequestLogin(req: Request, res: Response, next: NextFunction, u
  */
 export async function signup(req: Request, res: Response, next: NextFunction): Promise < void > {
     try {
+        logger.info("signup")
         const user: IUserModel = await AuthService.createUser(req.body);
         
         passportRequestLogin(req, res, next, user, 'Sign in successfull');
     } catch (error) {
+        logger.info(error)
         if (error.code === 500) {
             return next(new HttpError(error.message.status, error.message));
         }
@@ -54,12 +57,16 @@ export async function signup(req: Request, res: Response, next: NextFunction): P
  * @returns {Promise < void >}
  */
 export async function login(req: Request, res: Response, next: NextFunction): Promise < void > {
+    logger.info("login")
     passport.authenticate('local', (err: Error, user: IUserModel) => {
         if (err) {
+            logger.info(err)
             return next(new HttpError(400, err.message));
         }
 
         if (!user) {
+            logger.info(user)
+            
             return res.json({
                 status: 401,
                 logged: false,

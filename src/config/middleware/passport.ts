@@ -4,6 +4,7 @@ import * as passportLocal from 'passport-local';
 import HttpError from '../error';
 import UserModel, { IUserModel } from '../../components/User/model';
 import { NextFunction, Request, Response } from 'express';
+import { logger } from '../utils/logger';
 
 type LocalStrategyType = typeof passportLocal.Strategy;
 
@@ -50,6 +51,7 @@ passport.use(new LocalStrategy({
         });
 
         if (!user) {
+            logger.info(user)
             return done(undefined, false, {
                 message: `Email ${email} not found.`
             });
