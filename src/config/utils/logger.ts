@@ -33,7 +33,6 @@ export const logger = createLogger({
       format: format.combine(
         format.colorize(),
         format.printf(({ level, message, timestamp } : any) => {
-            console.log(message + " -------")
             return `${timestamp} ${level}: ${message}`
         })
       )

@@ -12,9 +12,11 @@ import { logger } from '../../config/utils/logger';
  * @param {IUserModel} user 
  * @param {string} resMessage 
  */
-function passportRequestLogin(req: Request, res: Response, next: NextFunction, user: IUserModel ,resMessage: string): void {
+function passportRequestLogin(req: Request, res: Response, next: NextFunction, user: IUserModel ,resMessage: object): void {
     return req.logIn(user, (err) => {
         if (err) return next(new HttpError(err));
+
+        logger.info(resMessage)
 
         res.json({
             status: 200,
@@ -36,7 +38,7 @@ export async function signup(req: Request, res: Response, next: NextFunction): P
         logger.info("signup")
         const user: IUserModel = await AuthService.createUser(req.body);
         
-        passportRequestLogin(req, res, next, user, 'Sign in successfull');
+        passportRequestLogin(req, res, next, user, {type : 'signup' ,message : 'Sign in successfull'});
     } catch (error) {
         logger.info(error)
         if (error.code === 500) {
@@ -73,7 +75,7 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
                 message: 'Invalid credentials!'
             });
         }
-        passportRequestLogin(req, res, next, user, 'Sign in successfull');
+        passportRequestLogin(req, res, next, user, {type : 'login' , message : 'Sign in successfull'});
     })(req, res, next);
 }
 /**
