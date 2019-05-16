@@ -29,7 +29,7 @@ export interface IHomeModel extends Document {
  *  subtitle : 서브 제목
  *  conts : 내용
  *  image : 유저 이미지
- *  wisesaying : 명언
+ *  wisesaying : 한줄 소개
  *  visible : 보여지는지 여부
  */
 const homeSchema: Schema = new Schema({

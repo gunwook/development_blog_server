@@ -35,7 +35,6 @@ function passportRequestLogin(req: Request, res: Response, next: NextFunction, u
  */
 export async function signup(req: Request, res: Response, next: NextFunction): Promise < void > {
     try {
-        logger.info("signup")
         const user: IUserModel = await AuthService.createUser(req.body);
         
         passportRequestLogin(req, res, next, user, {type : 'signup' ,message : 'Sign in successfull'});
@@ -59,7 +58,6 @@ export async function signup(req: Request, res: Response, next: NextFunction): P
  * @returns {Promise < void >}
  */
 export async function login(req: Request, res: Response, next: NextFunction): Promise < void > {
-    logger.info("login")
     passport.authenticate('local', (err: Error, user: IUserModel) => {
         if (err) {
             logger.info(err)
