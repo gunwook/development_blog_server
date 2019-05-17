@@ -25,7 +25,7 @@ export function init(app: express.Application): void {
      * Home 관련 데이터 처리
      * @constructs
      */
-    app.use('/home',)
+    app.use('/home', passportConfig.isAuthenticated,HomeRouter)
 
     /**
      * @description Forwards any requests to the /auth URI to our AuthRouter
