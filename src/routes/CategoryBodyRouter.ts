@@ -1,4 +1,4 @@
-import { HomeComponent } from '../components';
+import { CategoryBodyComponent } from '../components';
 import { Router } from 'express';
 import upload from '../config/utils/multer'
 
@@ -7,8 +7,8 @@ import upload from '../config/utils/multer'
  */
 const router: Router = Router();
 
-router.post('/save',upload.array('photos'), HomeComponent.insertToHome);
-router.get('/find', HomeComponent.find)
+router.post('/save', CategoryBodyComponent.save);
+router.get('/find', CategoryBodyComponent.find)
 
 
 /**

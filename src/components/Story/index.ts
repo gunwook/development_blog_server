@@ -1,7 +1,7 @@
 
-import HomeService from './service';
+import StoryService from './service';
 import { HttpError } from '../../config/error';
-import { IHomeModel } from './model';
+import { IStoryModel } from './model';
 import { NextFunction, Request, Response } from 'express';
 
 /**
@@ -11,9 +11,9 @@ import { NextFunction, Request, Response } from 'express';
  * @param {NextFunction} next
  * @returns {Promise < void >}
  */
-export async function insertToHome(req : Request, res : Response , next : NextFunction) {
+export async function insertToStory(req : Request, res : Response , next : NextFunction) {
     try {
-        const users: IHomeModel = await HomeService.insert(req);
+        const users: IStoryModel = await StoryService.insert(req);
 
         res.status(200).json(users);
     } catch (error) {
@@ -29,7 +29,7 @@ export async function insertToHome(req : Request, res : Response , next : NextFu
  */
 export async function find(req : Request , res : Response , next : NextFunction){
     try {
-        const users : IHomeModel[] = await HomeService.find(req.query.home_id);
+        const users : IStoryModel[] = await StoryService.find(req.query.story_id);
         
         res.status(200).json(users)
     } catch (error) {

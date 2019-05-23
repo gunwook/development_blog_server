@@ -1,4 +1,4 @@
-import * as connections from '../../config/connection/connection';
+import * as mongoose from 'mongoose';
 import { Document, Schema } from 'mongoose';
 import {MongooseAutoIncrementID , PluginOptions} from "mongoose-auto-increment-reworked";
 import CodeUtils from '../../config/utils/CodeUtils'
@@ -49,4 +49,4 @@ const plugin = new MongooseAutoIncrementID(commentSchema, "Comment",options);
    
 plugin.applyPlugin();
 
-export default connections.db.model < ICommentModel > ('Comment', commentSchema);
+export default mongoose.model < ICommentModel > ('Comment', commentSchema);

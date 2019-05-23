@@ -1,5 +1,5 @@
 import { ICateGoryModel } from './model';
-
+import { NextFunction, Request, Response } from 'express';
 /**
  * @export
  * @interface ICateService
@@ -19,7 +19,7 @@ export interface ICateService {
      * @returns {Promise<ICateGoryModel>}
      * @memberof ICateService
      */
-    insert(ICateGoryModel: ICateGoryModel): Promise<ICateGoryModel>;
+    insert(request: Request): Promise<ICateGoryModel>;
 
     /**
      * @param {string} id

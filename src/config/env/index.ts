@@ -13,6 +13,14 @@ interface IConfig {
         host: string;
     };
     secret: string;
+
+    aws : {
+        SECRETACCESSKEY : string;
+        ACCESSKEYID : string;
+        REGION : string;
+        BUCKET : string;
+        ACL : string;
+    }
 }
 
 const NODE_ENV: string = process.env.NODE_ENV || 'development';
@@ -27,7 +35,14 @@ const development: IConfig = {
         port: parseInt(process.env.REDIS_PORT, 10) || 6379,
         host: process.env.REDIS_HOST || '127.0.0.1',
     },
-    secret: process.env.SECRET || '@QEGTUI'
+    secret: process.env.SECRET || '@QEGTUI',
+    aws : {
+        SECRETACCESSKEY : process.env.SECRETACCESSKEY,
+        ACCESSKEYID : process.env.ACCESSKEYID,
+        REGION : process.env.REGION,
+        BUCKET : process.env.BUCKET,
+        ACL : process.env.ACL
+    }
 };
 
 const production: IConfig = {
@@ -40,7 +55,14 @@ const production: IConfig = {
         port: parseInt(process.env.REDIS_PORT, 10) || 6379,
         host: process.env.REDIS_HOST || '127.0.0.1',
     },
-    secret: process.env.SECRET || '@QEGTUI'
+    secret: process.env.SECRET || '@QEGTUI',
+    aws : {
+        SECRETACCESSKEY : process.env.SECRETACCESSKEY,
+        ACCESSKEYID : process.env.ACCESSKEYID,
+        REGION : process.env.REGION,
+        BUCKET : process.env.BUCKET,
+        ACL : process.env.ACL
+    }
 };
 
 const test: IConfig = {
@@ -53,7 +75,14 @@ const test: IConfig = {
         port: parseInt(process.env.REDIS_PORT, 10) || 6379,
         host: process.env.REDIS_HOST || '127.0.0.1',
     },
-    secret: process.env.SECRET || '@QEGTUI'
+    secret: process.env.SECRET || '@QEGTUI',
+    aws : {
+        SECRETACCESSKEY : process.env.SECRETACCESSKEY,
+        ACCESSKEYID : process.env.ACCESSKEYID,
+        REGION : process.env.REGION,
+        BUCKET : process.env.BUCKET,
+        ACL : process.env.ACL
+    }
 };
 
 const config: {

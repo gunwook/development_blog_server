@@ -4,6 +4,10 @@ import { IHomeService } from './interface';
 import { Types } from 'mongoose';
 import Validation from './validation'
 import CodeUtils from '../../config/utils/CodeUtils'
+import { NextFunction, Request, Response } from 'express';
+import form from '../../config/utils/formidable'
+import { logger } from '../../config/utils/logger';
+import multer = require('multer');
 
 /**
  * @implements {IHomeService}
@@ -25,6 +29,7 @@ const HomeService: IHomeService = {
                 home_id : id    
             });
         } catch (error) {
+            logger.info(error.message)
             throw new Error(error.message);
         }
     },
@@ -33,18 +38,57 @@ const HomeService: IHomeService = {
      * @param {IHomeModel} user
      * @returns {Promise < IHomeModel >}
      */
-    async insert(body: IHomeModel): Promise < IHomeModel > {
+    async insert(req: Request): Promise < IHomeModel > {
         try {
-            const validate: Joi.ValidationResult < IHomeModel > = Validation.create(body);
+            /*let model : IHomeModel = await new Promise(function (resolve ,reject){
+               
+                form.parse(req , (err , field , files) => {
+                    if (err) {
+                        reject(err);
+                    }else {
+                        console.log(field)
+                        resolve(model);
+                    }
+                })
+            })*/
+
+
+            let data = [].concat(req.files);
+            let backgroundimage = ''
+            let image : Array<string> = []
+            let bool = true
+            for (let entry of data) {
+                if (bool){
+                    backgroundimage = entry.original.key
+                    bool = false
+                }else{
+                    image.push(entry.original.key)
+                }
+            }
+            
+            const model = new HomeModel({
+                user_id :  req.body['user_id'],
+                backgroundimage : backgroundimage,
+                title : req.body['title'],
+                subtitle : req.body['subtitle'],
+                conts : req.body['conts'],
+                image : image,
+                wisesaying : req.body['wisesaying'],
+                visible : req.body['visible']
+            })
+
+            const validate: Joi.ValidationResult <IHomeModel> = Validation.create(model.toObject());
 
             if (validate.error) {
                 throw new Error(validate.error.message);
             }
 
-            const user: IHomeModel = await HomeModel.create(body);
 
-            return user;
+            const user: IHomeModel = await HomeModel.create(model)
+            
+            return user
         } catch (error) {
+            logger.info(error.message)
             throw new Error(error.message);
         }
     },

@@ -26,8 +26,9 @@ class CateValidation extends Validation {
         params: ICateGoryModel
     ): Joi.ValidationResult < ICateGoryModel > {
         const schema: Joi.Schema = Joi.object().keys({
-            user_id: Joi.string().required(),
-            cate_value: Joi.string().required()
+            user_id : Joi.string().required(),
+            cate_value : Joi.string().required(),
+            visible :Joi.any().valid(['y' , 'n']),
         });
 
         return Joi.validate(params, schema);

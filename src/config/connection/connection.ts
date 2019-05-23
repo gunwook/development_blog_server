@@ -16,40 +16,43 @@ const connectOptions: IConnectOptions = {
     useNewUrlParser: true,
 };
 
-const MONGO_URI: string = `${config.database.MONGODB_URI}${config.database.MONGODB_DB_MAIN}`;
+export function init() {
+    mongoose.set('useCreateIndex', true)
 
-export const db: mongoose.Connection = mongoose.createConnection(MONGO_URI, connectOptions);
+    const MONGO_URI: string = `${config.database.MONGODB_URI}${config.database.MONGODB_DB_MAIN}`;
+    mongoose.connect(MONGO_URI, connectOptions);
 
-// handlers
-db.on('connecting', () => {
-    console.log('\x1b[32m', 'MongoDB :: connecting');
-});
+    // handlers
+    mongoose.connection.on('connecting', () => {
+        console.log('\x1b[32m', 'MongoDB :: connecting');
+    });
 
-db.on('error', (error) => {
-    console.log('\x1b[31m', `MongoDB :: connection ${error}`);
-    mongoose.disconnect();
-});
+    mongoose.connection.on('error', (error) => {
+        console.log('\x1b[31m', `MongoDB :: connection ${error}`);
+        mongoose.disconnect();
+    });
 
-db.on('connected', () => {
-    console.log('\x1b[32m', 'MongoDB :: connected');
-});
+    mongoose.connection.on('connected', () => {
+        console.log('\x1b[32m', 'MongoDB :: connected');
+    });
 
-db.once('open', () => {
-    console.log('\x1b[32m', 'MongoDB :: connection opened');
-});
+    mongoose.connection.once('open', () => {
+        console.log('\x1b[32m', 'MongoDB :: connection opened');
+    });
 
-db.on('reconnected', () => {
-    console.log('\x1b[33m"', 'MongoDB :: reconnected');
-});
+    mongoose.connection.on('reconnected', () => {
+        console.log('\x1b[33m"', 'MongoDB :: reconnected');
+    });
 
-db.on('reconnectFailed', () => {
-    console.log('\x1b[31m', 'MongoDB :: reconnectFailed');
-});
+    mongoose.connection.on('reconnectFailed', () => {
+        console.log('\x1b[31m', 'MongoDB :: reconnectFailed');
+    });
 
-db.on('disconnected', () => {
-    console.log('\x1b[31m', 'MongoDB :: disconnected');
-});
+    mongoose.connection.on('disconnected', () => {
+        console.log('\x1b[31m', 'MongoDB :: disconnected');
+    });
 
-db.on('fullsetup', () => {
-    console.log('\x1b[33m"', 'MongoDB :: reconnecting... %d');
-});
+    mongoose.connection.on('fullsetup', () => {
+        console.log('\x1b[33m"', 'MongoDB :: reconnecting... %d');
+    });
+}

@@ -1,5 +1,5 @@
 import * as bcrypt from 'bcrypt';
-import * as connections from '../../config/connection/connection';
+import * as mongoose from 'mongoose';
 import * as crypto from 'crypto';
 import { Document, Schema } from 'mongoose';
 import { NextFunction } from 'express';
@@ -11,8 +11,8 @@ import CodeUtils from '../../config/utils/CodeUtils'
  * @extends {Document}
  */
 export interface ICateGoryModel extends Document {
-    cate_id : {type : number , default : 0},
-    user_id : {type : string}
+    cate_id : number,
+    user_id : string
     cate_value : string,
     visible : string
 }
@@ -26,9 +26,9 @@ export interface ICateGoryModel extends Document {
  *  visible : 보여지는지 여부 (ex : "y" , "n")
  */
 const cateSchema: Schema = new Schema({
-    cate_id : {type : Number , default : 0},
-    user_id : String,
-    cate_value : String,
+    cate_id : {type : Number , default : 0 , unique : true},
+    user_id : {type : String , index : true},
+    cate_value : {type : String},
     visible : {type: String , default : CodeUtils.VISIBLE_Y}
 }, {
     collection: 'category',
@@ -36,7 +36,15 @@ const cateSchema: Schema = new Schema({
     timestamps : true
 })
 
-const options: any = {
+
+cateSchema.set('toObject', {
+    transform: (doc : any, ret : any) => {
+        delete ret._id;
+        return ret;
+    },
+});
+
+const options: PluginOptions = {
     field: "cate_id", 
     incrementBy: 1,
     nextCount: false, 
@@ -49,4 +57,4 @@ const options: any = {
    
   plugin.applyPlugin();
 
-export default connections.db.model < ICateGoryModel > ('CateGory', cateSchema);
+export default mongoose.model < ICateGoryModel > ('CateGory', cateSchema);

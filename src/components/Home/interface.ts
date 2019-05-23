@@ -1,5 +1,5 @@
 import { IHomeModel } from './model';
-
+import { NextFunction, Request, Response } from 'express';
 /**
  * @export
  * @interface IHomeService
@@ -17,7 +17,7 @@ export interface IHomeService {
      * @param {IHomeModel} IHomeModel
      * @returns {Promise<IHomeService>}
      */
-    insert(IHomeModel: IHomeModel): Promise<IHomeModel>;
+    insert(request: Request): Promise<IHomeModel>;
 
     /**
      * @param {string} id

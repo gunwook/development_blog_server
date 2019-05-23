@@ -26,10 +26,14 @@ class StoryValidation extends Validation {
         params: IStoryModel
     ): Joi.ValidationResult < IStoryModel > {
         const schema: Joi.Schema = Joi.object().keys({
-            user_id: Joi.string().required(),
-            title: Joi.string().required(),
-            content: Joi.string().required(),
-            cate_id: Joi.string().required()
+            user_id : Joi.string().required(),
+            title : Joi.string().required(),
+            content : Joi.string().required(),
+            cate_id : Joi.string().required(),
+            file : Joi.array().optional(),
+            tag : Joi.array().optional(),
+            related_content : Joi.array().optional(),
+            visible :Joi.any().valid(['y' , 'n']),
         });
 
         return Joi.validate(params, schema);

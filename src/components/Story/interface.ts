@@ -1,5 +1,5 @@
 import { IStoryModel } from './model';
-
+import { NextFunction, Request, Response } from 'express';
 /**
  * @export
  * @interface IStoryService
@@ -15,11 +15,11 @@ export interface IStoryService {
     find(id: string): Promise<IStoryModel[]>;
 
     /**
-     * @param {IStoryModel} IStoryModel
+     * @param {Request} request
      * @returns {Promise<IStoryModel>}
      * @memberof IStoryService
      */
-    insert(IStoryModel: IStoryModel): Promise<IStoryModel>;
+    insert(request: Request): Promise<IStoryModel>;
 
     /**
      * @param {string} id

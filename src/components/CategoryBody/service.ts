@@ -4,6 +4,7 @@ import { ICateBodyService } from './interface';
 import { Types } from 'mongoose';
 import Validation from './validation'
 import CodeUtils from '../../config/utils/CodeUtils'
+import { Request } from 'express'
 
 /**
  * @export
@@ -33,18 +34,24 @@ const CateBodyService: ICateBodyService = {
     },
 
     /**
-     * 삽입
-     * @param {ICateGoryBodyModel} body
+     * @description 삽입
+     * @param {Request} req
      */
-    async insert(body: ICateGoryBodyModel): Promise < ICateGoryBodyModel > {
+    async insert(req: Request): Promise < ICateGoryBodyModel > {
         try {
-            const validate: Joi.ValidationResult < ICateGoryBodyModel > = Validation.create(body);
+            let model =  new CateBodyModel({
+                cate_id : req.body['cate_id'],
+                cate_value : req.body['cate_value'],
+                visible : req.body['visible']
+            })
+
+            const validate: Joi.ValidationResult < ICateGoryBodyModel > = Validation.create(model.toObject());
 
             if (validate.error) {
                 throw new Error(validate.error.message);
             }
 
-            const user: ICateGoryBodyModel = await CateBodyModel.create(body);
+            const user: ICateGoryBodyModel = await CateBodyModel.create(model);
 
             return user;
         } catch (error) {

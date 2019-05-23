@@ -1,5 +1,6 @@
 import * as connections from '../../config/connection/connection';
 import { Document, Schema } from 'mongoose';
+import * as mongoose from 'mongoose';
 import {MongooseAutoIncrementID , PluginOptions} from "mongoose-auto-increment-reworked";
 import CodeUtils from '../../config/utils/CodeUtils'
 /**
@@ -46,4 +47,4 @@ const plugin = new MongooseAutoIncrementID(likeSchema, "Like",options);
    
 plugin.applyPlugin();
 
-export default connections.db.model < ILikeModel > ('Like', likeSchema);
+export default mongoose.model < ILikeModel > ('Like', likeSchema);

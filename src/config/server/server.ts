@@ -1,11 +1,16 @@
 import * as express from 'express';
 import * as Middleware from '../middleware/middleware';
 import * as Routes from '../../routes';
-
+import * as connections from '../../config/connection/connection';
 /**
  * @constant {express.Application}
  */
 const app: express.Application = express();
+
+/**
+ * @constructor mongo db 초기화
+ */
+connections.init()
 
 /** 
  * @constructs express.Application Middleware

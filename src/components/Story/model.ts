@@ -1,5 +1,5 @@
-import * as connections from '../../config/connection/connection';
 import { Document, Schema } from 'mongoose';
+import * as mongoose from 'mongoose';
 import {MongooseAutoIncrementID , PluginOptions} from "mongoose-auto-increment-reworked";
 import CodeUtils from '../../config/utils/CodeUtils'
 /**
@@ -8,15 +8,15 @@ import CodeUtils from '../../config/utils/CodeUtils'
  * @extends {Document}
  */
 export interface IStoryModel extends Document {
-    story_id : {type : number , default : 0},
-    user_id : {type : string},
-    title : {type : string},
-    content : {type : string},
-    cate_id : {type : string},
-    file : {type : string},
+    story_id :number,
+    user_id : string,
+    title : string,
+    content : string,
+    cate_id : string,
+    file : Array<string>,
     tag : Array<string>,
     related_content : Array<Map<string,string>>,
-    visible : {type: string}
+    visible :string
 }
 
 /**
@@ -32,22 +32,22 @@ export interface IStoryModel extends Document {
  *  related_content : 관계된 내용입력 ex) (TEST -> "http:local.test.io")
  */
 const storySchema: Schema = new Schema({
-    story_id : {type : Number , default : 0},
+    story_id : {type : Number , default : 0 , unique : true , index : true},
     user_id : {type : String},
     title : {type : String},
     content : {type : String},
     cate_id : {type : String},
-    file : {type : String},
-    tag : Array,
-    related_content : Array,
+    file : {type : Array},
+    tag : {type : Array},
+    related_content : {type : Array},
     visible : {type: String , default : CodeUtils.VISIBLE_Y}
 }, {
-    collection: 'story',
+    collection: 'storymodel',
     versionKey: false,
     timestamps : true
 })
 
-const options: any = {
+const options: PluginOptions = {
     field: "story_id", 
     incrementBy: 1,
     nextCount: false, 
@@ -55,9 +55,17 @@ const options: any = {
     startAt: 1,
     unique: true
   };
+
+storySchema.set('toObject', {
+transform: (doc : any, ret : any) => {
+    delete ret._id;
+    return ret;
+},
+});
+
   
-const plugin = new MongooseAutoIncrementID(storySchema, "Story",options);
+const plugin = new MongooseAutoIncrementID(storySchema, "StoryModel",options);
    
 plugin.applyPlugin();
 
-export default connections.db.model < IStoryModel > ('Story', storySchema);
+export default mongoose.model < IStoryModel > ('StoryModel', storySchema);

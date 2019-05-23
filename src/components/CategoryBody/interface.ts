@@ -1,5 +1,5 @@
 import { ICateGoryBodyModel } from './model';
-
+import { Request } from 'express'
 /**
  * @export
  * @interface ICateBodyService
@@ -18,7 +18,7 @@ export interface ICateBodyService {
      * @returns {Promise<ICateGoryModel>}
      * @memberof ICateBodyService
      */
-    insert(ICateGoryModel: ICateGoryBodyModel): Promise<ICateGoryBodyModel>;
+    insert(request: Request): Promise<ICateGoryBodyModel>;
 
     /**
      * @param {string} id

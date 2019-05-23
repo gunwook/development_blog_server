@@ -4,6 +4,8 @@ import { ICateService } from './interface';
 import { Types } from 'mongoose';
 import CateValidation from './validation'
 import CodeUtils from '../../config/utils/CodeUtils'
+import {Request} from 'express'
+
 /**
  * @export
  * @implements {ICateService}
@@ -24,7 +26,7 @@ const CateService: ICateService = {
 
             return await CateModel.find({
                 user_id : id    
-            });
+            }, {_id : false});
         } catch (error) {
             throw new Error(error.message);
         }
@@ -35,15 +37,22 @@ const CateService: ICateService = {
      * @returns {Promise < ICateGoryModel >}
      * @memberof CateService
      */
-    async insert(body: ICateGoryModel): Promise < ICateGoryModel > {
+    async insert(req: Request): Promise < ICateGoryModel > {
         try {
-            const validate: Joi.ValidationResult < ICateGoryModel > = CateValidation.createCateGory(body);
+            let model = new CateModel({
+                user_id : req.body['user_id'],
+                cate_value : req.body['cate_value'],
+                visible : req.body['visible']
+            })
+
+
+            const validate: Joi.ValidationResult < ICateGoryModel > = CateValidation.createCateGory(model.toObject());
 
             if (validate.error) {
                 throw new Error(validate.error.message);
             }
 
-            const user: ICateGoryModel = await CateModel.create(body);
+            const user: ICateGoryModel = await CateModel.create(model);
 
             return user;
         } catch (error) {

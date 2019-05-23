@@ -19,17 +19,15 @@ class HomeValidation extends Validation {
     create(
         params: IHomeModel
     ): Joi.ValidationResult < IHomeModel > {
-        const schema: Joi.Schema = Joi.object().keys({
-            
+        const schema: Joi.Schema = Joi.object().keys({  
             user_id : Joi.string().required(),
-            home_id :Joi.string().required(),
             backgroundimage :Joi.string().required(),
             title :Joi.string().required(),
             subtitle :Joi.string().required(),
             conts : Joi.string().required(),
-            image :Joi.string().required(),
+            image :Joi.array().required(),
             wisesaying : Joi.string().required(),
-            visible :Joi.string().required()
+            visible :Joi.any().valid(['y' , 'n']),
         });
 
         return Joi.validate(params, schema);
@@ -44,7 +42,7 @@ class HomeValidation extends Validation {
     find(
         home_id : string
     ) : Joi.ValidationResult<string>{
-        return Joi.validate(home_id,Joi.string().required())
+        return Joi.validate(home_id,Joi.number().required())
     }
 
    /**
