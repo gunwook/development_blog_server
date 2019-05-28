@@ -9,10 +9,10 @@ import CodeUtils from '../../config/utils/CodeUtils'
  * @extends {Document}
  */
 export interface ILikeModel extends Document {
-    like_id : {type : Number , default : 0},
-    user_id : {type : String},
-    story_id : {type : String},
-    is_like_yn : {type: String}
+    like_id : number,
+    user_id : string,
+    story_id : string,
+    is_like_yn : string
 }
 
 /**
@@ -26,13 +26,23 @@ export interface ILikeModel extends Document {
 const likeSchema: Schema = new Schema({
     like_id : {type : Number , default : 0},
     user_id : {type : String},
-    story_id : {type : String},
+    story_id : {type : String , index : true},
     is_like_yn : {type: String , default : CodeUtils.VISIBLE_Y}
 }, {
     collection: 'like',
     versionKey: false,
     timestamps : true
 })
+
+
+likeSchema.set('toObject', {
+    transform: (doc : any, ret : any) => {
+      delete ret._id;
+      delete ret.user_id;
+      return ret;
+    },
+  });
+    
 
 const options: any = {
     field: "like_id", 

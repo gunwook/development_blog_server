@@ -73,7 +73,7 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
                 message: 'Invalid credentials!'
             });
         }
-        passportRequestLogin(req, res, next, user, {type : 'login' , message : 'Sign in successfull'});
+        passportRequestLogin(req, res, next, user, {type : 'login' , message : 'Login in successfull'});
     })(req, res, next);
 }
 /**

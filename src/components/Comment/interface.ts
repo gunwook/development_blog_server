@@ -15,7 +15,7 @@ export interface ICommentService {
     find(id: string): Promise<ICommentModel[]>;
 
     /**
-     * @param {ILikeModel} ILikeModel
+     * @param {ICommentModel} ILikeModel
      * @returns {Promise<ICommentModel>}
      * @memberof ICommentService
      */

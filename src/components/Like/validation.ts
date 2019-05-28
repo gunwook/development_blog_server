@@ -28,7 +28,7 @@ class LikeValidation extends Validation {
         const schema: Joi.Schema = Joi.object().keys({
             user_id: Joi.string().required(),
             story_id: Joi.string().required(),
-            is_like_yn: Joi.string().required()
+            is_like_yn: Joi.any().valid(['y' , 'n'])
         });
 
         return Joi.validate(params, schema);

@@ -28,7 +28,8 @@ class CommentValidation extends Validation {
         const schema: Joi.Schema = Joi.object().keys({
             user_id: Joi.string().required(),
             story_id: Joi.string().required(),
-            content: Joi.string().required()
+            content: Joi.string().required(),
+            visible : Joi.any().valid(['y','n'])
         });
 
         return Joi.validate(params, schema);

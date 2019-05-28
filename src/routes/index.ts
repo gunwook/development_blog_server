@@ -39,7 +39,7 @@ export function init(app: express.Application): void {
      * 버전 v1 관련 api 처리 진행
      * @constructs
      */
-    app.use('/v1',ApiRouter)
+    app.use('/v1',passportConfig.isAuthenticated , ApiRouter)
 
    
 

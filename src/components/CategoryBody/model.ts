@@ -49,6 +49,7 @@ const options: PluginOptions = {
 cateSchema.set('toObject', {
     transform: (doc : any, ret : any) => {
         delete ret._id;
+        delete ret.user_id;
         return ret;
     },
 });

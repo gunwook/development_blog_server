@@ -48,7 +48,8 @@ export function configure(app: express.Application): void {
         store: new RedisStore({
             port: config.redis.port,
             host: config.redis.host,
-        })
+        }),
+        cookie: { maxAge : 3600000 }
     }));
     app.use(passport.initialize());
     app.use(passport.session());

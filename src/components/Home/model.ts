@@ -2,6 +2,8 @@ import { Document, Schema } from 'mongoose';
 import * as mongoose from 'mongoose';
 import {MongooseAutoIncrementID , PluginOptions} from "mongoose-auto-increment-reworked";
 import { NextFunction, Request, Response } from 'express';
+import CodeUtils from '../../config/utils/CodeUtils'
+
 /**
  * @export
  * @interface IHomeModel
@@ -41,7 +43,7 @@ const homeSchema: Schema = new Schema({
     conts : {type : String},
     image : {type : Array},
     wisesaying : {type : String},
-    visible : {type : String}
+    visible : {type: String , default : CodeUtils.VISIBLE_Y}
 }, {
     collection: 'homemodel', versionKey: false, timestamps: { createdAt: 'created_at' }
 })

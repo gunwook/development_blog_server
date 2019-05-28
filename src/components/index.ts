@@ -4,6 +4,8 @@ import * as HomeComponent from './Home';
 import * as StoryComponent from './Story';
 import * as CategoryComponent from './Category'
 import * as CategoryBodyComponent from './CategoryBody'
+import * as CommentComponent from './Comment'
+import * as LikeComponent from './Like'
 
 export {
     AuthComponent, 
@@ -11,5 +13,7 @@ export {
     HomeComponent,
     StoryComponent,
     CategoryComponent,
-    CategoryBodyComponent
+    CategoryBodyComponent,
+    CommentComponent,
+    LikeComponent
 };

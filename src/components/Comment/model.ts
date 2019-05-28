@@ -27,7 +27,7 @@ export interface ICommentModel extends Document {
 const commentSchema: Schema = new Schema({
     comment_id : {type : Number , default : 0},
     user_id : {type : String , required : true},
-    story_id : {type : String , required : true},
+    story_id : {type : String , required : true , index : true},
     content : {type : String},
     visible : {type: String , default : CodeUtils.VISIBLE_Y}
 }, {
