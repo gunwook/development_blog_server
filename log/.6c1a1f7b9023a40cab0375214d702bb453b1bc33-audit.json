@@ -34,6 +34,11 @@
             "date": 1559004582042,
             "name": "log\\2019-05-28-smart-push.log",
             "hash": "e69483f0bdf144962dabdd9efecfb9a8"
+        },
+        {
+            "date": 1559043403639,
+            "name": "log/2019-05-28-smart-push.log",
+            "hash": "bcad31a70bc2238825a9d33e5b21f087"
         }
     ]
 }

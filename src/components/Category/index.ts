@@ -13,6 +13,9 @@ import { NextFunction, Request, Response } from 'express';
  */
 export async function insertToCategory(req : Request, res : Response , next : NextFunction) {
     try {
+        // user_id 삽입
+        req.body.user_id = String(req.user._id)
+        
         const users: ICateGoryModel = await CateService.insert(req);
 
         res.status(200).json(users);

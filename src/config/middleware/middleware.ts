@@ -19,7 +19,7 @@ const RedisStore: connectRedis.RedisStore = connectRedis(session);
 export function configure(app: express.Application): void {
     // express middleware
     app.use(bodyParser.urlencoded({
-        extended: false
+        extended: true
     }));
     app.use(bodyParser.json());
     // parse Cookie header and populate req.cookies with an object keyed by the cookie names.
@@ -29,7 +29,7 @@ export function configure(app: express.Application): void {
     // helps you secure your Express apps by setting various HTTP headers
     app.use(helmet());
     // providing a Connect/Express middleware that can be used to enable CORS with various options
-    app.use(cors());
+    app.use(cors({credentials: true, origin: 'http://localhost:8000'}));
 
     /**
      * @swagger
@@ -49,7 +49,11 @@ export function configure(app: express.Application): void {
             port: config.redis.port,
             host: config.redis.host,
         }),
-        cookie: { maxAge : 3600000 }
+        cookie : {
+            httpOnly :  true,
+            secure : false,
+            maxAge : 1000 * 60 * 60 * 24 * 30
+        }
     }));
     app.use(passport.initialize());
     app.use(passport.session());

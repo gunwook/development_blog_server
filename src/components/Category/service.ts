@@ -40,11 +40,10 @@ const CateService: ICateService = {
     async insert(req: Request): Promise < ICateGoryModel > {
         try {
             let model = new CateModel({
-                user_id : String(req.user._id),
+                user_id : req.body['user_id'],
                 cate_value : req.body['cate_value'],
                 visible : req.body['visible']
             })
-
 
             const validate: Joi.ValidationResult < ICateGoryModel > = CateValidation.createCateGory(model.toObject());
 

@@ -31,7 +31,6 @@ export async function save(req : Request, res : Response , next : NextFunction) 
  */
 export async function find(req : Request , res : Response , next : NextFunction){
     try {
-        console.log(req.user._id)
         const users : ILikeModel[] = await LikeService.find(req.query.story_id);
         
         res.status(200).json(users)
