@@ -32,7 +32,7 @@ export async function insertToCategory(req : Request, res : Response , next : Ne
  */
 export async function find(req : Request , res : Response , next : NextFunction){
     try {
-        const users : ICateGoryModel[] = await CateService.find(req.query.user_id);
+        const users : ICateGoryModel[] = await CateService.find(req.user._id);
         
         res.status(200).json(users)
     } catch (error) {

@@ -18,12 +18,6 @@ const CateService: ICateService = {
      */
     async find(id: string): Promise <ICateGoryModel[]> {
         try {
-            const validate: Joi.ValidationResult <string> = CateValidation.findCateGory(id);
-
-            if (validate.error) {
-                throw new Error(validate.error.message);
-            }
-
             return await CateModel.find({
                 user_id : id    
             }, {_id : false});

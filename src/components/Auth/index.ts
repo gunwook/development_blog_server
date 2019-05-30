@@ -15,7 +15,7 @@ import { logger } from '../../config/utils/logger';
 function passportRequestLogin(req: Request, res: Response, next: NextFunction, user: IUserModel ,resMessage: object): void {
     return req.logIn(user, (err) => {
         if (err) return next(new HttpError(err));
-
+        
         logger.info(resMessage)
 
         res.json({
@@ -60,18 +60,13 @@ export async function signup(req: Request, res: Response, next: NextFunction): P
 export async function login(req: Request, res: Response, next: NextFunction): Promise < void > {
     passport.authenticate('local', (err: Error, user: IUserModel) => {
         if (err) {
-            logger.info(err)
             return next(new HttpError(400, err.message));
         }
 
         if (!user) {
             logger.info(user)
             
-            return res.json({
-                status: 401,
-                logged: false,
-                message: 'Invalid credentials!'
-            });
+            return next(new HttpError(404, 'Invalid credentials!'));
         }
         passportRequestLogin(req, res, next, user, {type : 'login' , message : 'Login in successfull'});
     })(req, res, next);
