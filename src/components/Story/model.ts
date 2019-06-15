@@ -13,7 +13,6 @@ export interface IStoryModel extends Document {
     title : string,
     content : string,
     cate_id : string,
-    file : Array<string>,
     tag : Array<string>,
     related_content : Array<Map<string,string>>,
     visible :string
@@ -37,10 +36,9 @@ const storySchema: Schema = new Schema({
     title : {type : String},
     content : {type : String},
     cate_id : {type : String},
-    file : {type : Array},
     tag : {type : Array},
     related_content : {type : Array},
-    visible : {type: String , default : CodeUtils.VISIBLE_Y}
+    visible : {type: String , default : CodeUtils.VISIBLE_Y , trim: true }
 }, {
     collection: 'storymodel',
     versionKey: false,

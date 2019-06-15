@@ -11,7 +11,7 @@ export interface ICateBodyService {
      * @returns {Promise<ICateGoryBodyModel>}
      * @memberof ICateBodyService
      */
-    find(id: string): Promise<ICateGoryBodyModel[]>;
+    find(id: string): Promise<ICateGoryBodyModel>;
 
     /**
      * @param {ICateGoryBodyModel} ICateGoryModel

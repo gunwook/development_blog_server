@@ -12,7 +12,7 @@ export interface ICateService {
      * @returns {Promise<ICateGoryModel>}
      * @memberof ICateService
      */
-    find(id: string): Promise<ICateGoryModel[]>;
+    find(id: string): Promise<ICateGoryModel>;
 
     /**
      * @param {ICateGoryModel} ICateGoryModel

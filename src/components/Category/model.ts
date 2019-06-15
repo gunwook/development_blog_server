@@ -13,8 +13,13 @@ import CodeUtils from '../../config/utils/CodeUtils'
 export interface ICateGoryModel extends Document {
     cate_id : number,
     user_id : string
-    cate_value : string,
+    cate_value : Array<cateType>,
     visible : string
+}
+
+export type cateType = {
+    value : string,
+    id : number
 }
 
 /**
@@ -28,7 +33,7 @@ export interface ICateGoryModel extends Document {
 const cateSchema: Schema = new Schema({
     cate_id : {type : Number , default : 0 , unique : true},
     user_id : {type : String , index : true},
-    cate_value : {type : String},
+    cate_value : {type : Array},
     visible : {type: String , default : CodeUtils.VISIBLE_Y}
 }, {
     collection: 'category',

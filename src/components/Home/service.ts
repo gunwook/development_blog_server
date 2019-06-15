@@ -7,7 +7,7 @@ import CodeUtils from '../../config/utils/CodeUtils'
 import { NextFunction, Request, Response } from 'express';
 import form from '../../config/utils/formidable'
 import { logger } from '../../config/utils/logger';
-import multer = require('multer');
+import {concat} from 'lodash'
 
 /**
  * @implements {IHomeService}
@@ -26,7 +26,7 @@ const HomeService: IHomeService = {
             }
 
             return await HomeModel.find({
-                home_id : id    
+                user_id : id    
             });
         } catch (error) {
             logger.info(error.message)
@@ -40,52 +40,22 @@ const HomeService: IHomeService = {
      */
     async insert(req: Request): Promise < IHomeModel > {
         try {
-            /*let model : IHomeModel = await new Promise(function (resolve ,reject){
-               
-                form.parse(req , (err , field , files) => {
-                    if (err) {
-                        reject(err);
-                    }else {
-                        console.log(field)
-                        resolve(model);
-                    }
-                })
-            })*/
-
-
-            let data = [].concat(req.files);
-            let backgroundimage = ''
-            let image : Array<string> = []
-            let bool = true
-            for (let entry of data) {
-                if (bool){
-                    backgroundimage = entry.original.key
-                    bool = false
-                }else{
-                    image.push(entry.original.key)
-                }
-            }
-            
-            const model = new HomeModel({
+            const model = {
                 user_id :  req.body['user_id'],
-                backgroundimage : backgroundimage,
                 title : req.body['title'],
                 subtitle : req.body['subtitle'],
                 conts : req.body['conts'],
-                image : image,
                 wisesaying : req.body['wisesaying'],
                 visible : req.body['visible']
-            })
+            }
 
-            const validate: Joi.ValidationResult <IHomeModel> = Validation.create(model.toObject());
+            const validate: Joi.ValidationResult <any> = Validation.create(model);
 
             if (validate.error) {
                 throw new Error(validate.error.message);
             }
 
-
-            const user: IHomeModel = await HomeModel.create(model)
-            
+            const user: IHomeModel = await HomeModel.update({user_id:  req.body['user_id']},model,{upsert : true})
             return user
         } catch (error) {
             logger.info(error.message)
@@ -106,11 +76,46 @@ const HomeService: IHomeService = {
             }
 
             const user: IHomeModel = await HomeModel.updateOne({
-                home_id : id    
+                user_id : id    
             },{
                 $set : {visible : CodeUtils.VISIBLE_N}
             })
 
+            return user;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    },
+
+
+    /**
+     * @param {Request} request
+     * @returns {Promise < IHomeModel >}
+     */
+    async upload(req: Request): Promise < IHomeModel > {
+        try {
+            let data = [].concat(req.files);
+            let image : Array<string> = []
+            for (let entry of data) {
+                image.push(entry.original.key)
+            }
+            
+            const validate: Joi.ValidationResult <Array<string>> = Validation.upload(image);
+
+            if (validate.error) {
+                throw new Error(validate.error.message);
+            }
+
+            const query: IHomeModel = await HomeModel.findOne({
+                user_id: req.body['user_id']
+            });
+
+            const model = {
+                user_id : req.body['user_id'],
+                image : concat(query.image,image)
+            }
+
+            const user: IHomeModel = await HomeModel.updateOne({user_id:  req.body['user_id']},model,{upsert : true})
             return user;
         } catch (error) {
             throw new Error(error.message);

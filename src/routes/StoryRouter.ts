@@ -7,8 +7,9 @@ import upload from '../config/utils/multer'
  */
 const router: Router = Router();
 
-router.post('/save',upload.array('photos'), StoryComponent.insertToStory);
+router.post('/save', StoryComponent.insertToStory);
 router.get('/find', StoryComponent.find)
+router.post('/upload',upload.array('photos'),StoryComponent.upload)
 
 
 /**

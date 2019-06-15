@@ -7,9 +7,9 @@ import upload from '../config/utils/multer'
  */
 const router: Router = Router();
 
-router.post('/save',upload.array('photos'), HomeComponent.insertToHome);
+router.post('/save', HomeComponent.insertToHome);
 router.get('/find', HomeComponent.find)
-
+router.post('/upload',upload.array('photos'),HomeComponent.upload)
 
 /**
  * @export {express.Router}

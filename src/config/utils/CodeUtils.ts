@@ -3,4 +3,9 @@ const CodeUtils = {
     VISIBLE_N : 'n',
 }
 
+export const SuccessYn = {
+    SUCCESS : 'y',
+    FAIL : 'n'
+}
+
 export default CodeUtils

@@ -5,6 +5,7 @@ import { Types } from 'mongoose';
 import Validation from './validation'
 import { NextFunction, Request, Response } from 'express';
 import CodeUtils from '../../config/utils/CodeUtils'
+import upload from '../../config/utils/multer';
 /**
  * @export
  * @implements {IStoryService}
@@ -38,21 +39,13 @@ const StoryService: IStoryService = {
      */
     async insert(req: Request): Promise < IStoryModel > {
         try {
-
-            let data = [].concat(req.files);
-            let image : Array<string> = []
-            for (let entry of data) {
-                image.push(entry.original.key)
-            }
-
             const model : IStoryModel = new StoryModel({
                 user_id : req.body['user_id'],
                 title : req.body['title'],
                 content : req.body['content'],
                 cate_id : req.body['cate_id'],
-                file : image ,
-                tag : req.body['tag'], 
-                related_content : req.body['related_content'],
+                tag : req.body['tag'] ? req.body['tag'] : [], 
+                related_content : req.body['related_content'] ? req.body['related_content'] : [] ,
                 visible : req.body['visible']
             })
 

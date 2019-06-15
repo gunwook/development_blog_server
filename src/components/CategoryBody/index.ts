@@ -29,7 +29,7 @@ export async function save(req : Request, res : Response , next : NextFunction) 
  */
 export async function find(req : Request , res : Response , next : NextFunction){
     try {
-        const users : ICateGoryBodyModel[] = await CateBodyService.find(req.query.cate_id);
+        const users : ICateGoryBodyModel = await CateBodyService.find(req.query.cate_id);
         
         res.status(200).json(users)
     } catch (error) {

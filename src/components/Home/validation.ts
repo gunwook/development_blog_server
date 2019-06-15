@@ -13,47 +13,57 @@ class HomeValidation extends Validation {
     }
 
     /**
-     * @param {IHomeModel} params
+     * @param {any} params
      * @returns {Joi.ValidationResult<IHomeModel >}
      */
     create(
-        params: IHomeModel
-    ): Joi.ValidationResult < IHomeModel > {
-        const schema: Joi.Schema = Joi.object().keys({  
+        params: any
+    ): Joi.ValidationResult < any > {
+        const schema = {  
             user_id : Joi.string().required(),
-            backgroundimage :Joi.string().required(),
             title :Joi.string().required(),
             subtitle :Joi.string().required(),
             conts : Joi.string().required(),
-            image :Joi.array().required(),
+            image :Joi.array().optional(),
             wisesaying : Joi.string().required(),
             visible :Joi.any().valid(['y' , 'n']),
-        });
+        }
 
         return Joi.validate(params, schema);
     }
 
 
     /**
-     * @param {string} home_id
+     * @param {string} user_id
      * @returns {Joi.ValidationResult<string>}
      * @memberof HomeValidation
      */
     find(
-        home_id : string
+        user_id : string
     ) : Joi.ValidationResult<string>{
-        return Joi.validate(home_id,Joi.number().required())
+        return Joi.validate(user_id,Joi.number().required())
+    }
+
+    /**
+     * @param {Array<string>} image
+     * @returns {Joi.ValidationResult<string>}
+     * @memberof HomeValidation
+     */
+    upload(
+        image : Array<string>
+    ) : Joi.ValidationResult<Array<string>>{
+        return Joi.validate(image,Joi.array().required())
     }
 
    /**
-     * @param {{ id: string }} body
+     * @param {{ id: string }} user_id
      * @returns {Joi.ValidationResult<{ id: string }>}
      * @memberof HomeValidation
      */
     remove(
-        home_id : string
+        user_id : string
     ) : Joi.ValidationResult<string>{
-        return Joi.validate(home_id,Joi.string().required())
+        return Joi.validate(user_id,Joi.string().required())
     }
 }
 

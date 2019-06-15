@@ -6,49 +6,24 @@
     "auditLog": "log/.6c1a1f7b9023a40cab0375214d702bb453b1bc33-audit.json",
     "files": [
         {
-            "date": 1558331349876,
-            "name": "log\\2019-05-20-smart-push.log",
-            "hash": "02e881ec8abbbdaa44e0bc817aae140c"
+            "date": 1559562062358,
+            "name": "log/2019-06-03-smart-push.log",
+            "hash": "7b738e6be0f9f86b2b359d83854964d8"
         },
         {
-            "date": 1558397027998,
-            "name": "log\\2019-05-21-smart-push.log",
-            "hash": "836e9090e2b06a362ccfaf957501402e"
+            "date": 1559791225558,
+            "name": "log/2019-06-06-smart-push.log",
+            "hash": "897a303aa88be83e3f043c27c4ad6806"
         },
         {
-            "date": 1558493082756,
-            "name": "log\\2019-05-22-smart-push.log",
-            "hash": "f270e01559d967633211aa09366a4a0b"
+            "date": 1559883892992,
+            "name": "log/2019-06-07-smart-push.log",
+            "hash": "cc0336453a17300d0d93b222f7ebfd30"
         },
         {
-            "date": 1558569576772,
-            "name": "log\\2019-05-23-smart-push.log",
-            "hash": "90a2cc24b892f5170ee28153abe6c515"
-        },
-        {
-            "date": 1558939882717,
-            "name": "log\\2019-05-27-smart-push.log",
-            "hash": "3cfb8c23625deb5dfbfed1fe0a43daf4"
-        },
-        {
-            "date": 1559004582042,
-            "name": "log\\2019-05-28-smart-push.log",
-            "hash": "e69483f0bdf144962dabdd9efecfb9a8"
-        },
-        {
-            "date": 1559043403639,
-            "name": "log/2019-05-28-smart-push.log",
-            "hash": "bcad31a70bc2238825a9d33e5b21f087"
-        },
-        {
-            "date": 1559094110458,
-            "name": "log\\2019-05-29-smart-push.log",
-            "hash": "3a4c574a86df7205c120deba26a83be2"
-        },
-        {
-            "date": 1559203480902,
-            "name": "log\\2019-05-30-smart-push.log",
-            "hash": "c7cc76c9c97f29297100febefb258d3e"
+            "date": 1560584167556,
+            "name": "log/2019-06-15-smart-push.log",
+            "hash": "2d39efad551a0252ece9e0accd5594af"
         }
     ]
 }

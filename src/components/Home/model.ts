@@ -11,8 +11,6 @@ import CodeUtils from '../../config/utils/CodeUtils'
  */
 export interface IHomeModel extends Document {
     user_id : string,
-    home_id : number,
-    backgroundimage : string,
     title : string,
     subtitle : string,
     conts : string,
@@ -25,8 +23,6 @@ export interface IHomeModel extends Document {
  *  HomeSchema
  * 
  *  user_id : user_id (ex : 0)
- *  home_id : 고유 id (ex : 0)
- *  backgroundimage : 배경이미지
  *  title : 제목
  *  subtitle : 서브 제목
  *  conts : 내용
@@ -35,9 +31,7 @@ export interface IHomeModel extends Document {
  *  visible : 보여지는지 여부
  */
 const homeSchema: Schema = new Schema({
-    user_id : {type : String , required : true},
-    home_id : {type : Number , unique : true , index : true},
-    backgroundimage : {type : String},
+    user_id : {type : String , required : true, unique : true, index : true},
     title : {type : String},
     subtitle : {type : String},
     conts : {type : String},
@@ -47,14 +41,6 @@ const homeSchema: Schema = new Schema({
 }, {
     collection: 'homemodel', versionKey: false, timestamps: { createdAt: 'created_at' }
 })
-const options: PluginOptions = {
-    field: "home_id", 
-    incrementBy: 1,
-    nextCount: false, 
-    resetCount: "reset", 
-    startAt: 1,
-    unique: true
-  };
 
 homeSchema.set('toObject', {
   transform: (doc : any, ret : any) => {
@@ -63,7 +49,7 @@ homeSchema.set('toObject', {
   },
 });
   
-const plugin = new MongooseAutoIncrementID(homeSchema, "HomeModel",options);
+const plugin = new MongooseAutoIncrementID(homeSchema, "HomeModel");
    
 plugin.applyPlugin();
 

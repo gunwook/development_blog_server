@@ -19,7 +19,7 @@ class CateBodyValidation extends Validation {
     ): Joi.ValidationResult < ICateGoryBodyModel > {
         const schema: Joi.Schema = Joi.object().keys({
             cate_id: Joi.number().required(),
-            cate_value : Joi.string().required(),
+            cate_value : Joi.array().required(),
             visible :Joi.any().valid(['y','n']),
         });
 

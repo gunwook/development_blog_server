@@ -25,4 +25,10 @@ export interface IHomeService {
      */
     remove(id: string): Promise<IHomeModel>;
 
+
+    /**
+     * @param {IHomeModel} IHomeModel
+     * @returns {Promise<IHomeService>}
+     */
+    upload(request: Request): Promise<IHomeModel>;
 }

@@ -5,6 +5,7 @@ import { Types } from 'mongoose';
 import CateValidation from './validation'
 import CodeUtils from '../../config/utils/CodeUtils'
 import {Request} from 'express'
+import { logger } from '../../config/utils/logger';
 
 /**
  * @export
@@ -16,11 +17,12 @@ const CateService: ICateService = {
      * @returns {Promise < ICateGoryModel >}
      * @memberof CateService
      */
-    async find(id: string): Promise <ICateGoryModel[]> {
+    async find(id: string): Promise <ICateGoryModel> {
         try {
-            return await CateModel.find({
+            const cate = await CateModel.findOne({
                 user_id : id    
             }, {_id : false});
+            return cate
         } catch (error) {
             throw new Error(error.message);
         }
@@ -44,9 +46,13 @@ const CateService: ICateService = {
             if (validate.error) {
                 throw new Error(validate.error.message);
             }
-
-            const user: ICateGoryModel = await CateModel.create(model);
-
+            const find = await CateModel.findOne({user_id : model.user_id});
+            let user: ICateGoryModel; 
+            if (find){
+                user = await CateModel.updateOne({user_id: model.user_id},{$set:{cate_value : model.cate_value , visible : model.visible}})
+            }else {
+                user = await CateModel.create(model);
+            }
             return user;
         } catch (error) {
             throw new Error(error.message);

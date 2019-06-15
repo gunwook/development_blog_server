@@ -30,7 +30,6 @@ class StoryValidation extends Validation {
             title : Joi.string().required(),
             content : Joi.string().required(),
             cate_id : Joi.string().required(),
-            file : Joi.array().optional(),
             tag : Joi.array().optional(),
             related_content : Joi.array().optional(),
             visible :Joi.any().valid(['y' , 'n']),

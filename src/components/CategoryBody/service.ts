@@ -16,7 +16,7 @@ const CateBodyService: ICateBodyService = {
      * 검색
      * @param {string} cate_id
      */
-    async find(cate_id: string): Promise <ICateGoryBodyModel[]> {
+    async find(cate_id: string): Promise <ICateGoryBodyModel> {
         try {
             const validate: Joi.ValidationResult <string> = Validation.find(cate_id);
 
@@ -24,7 +24,7 @@ const CateBodyService: ICateBodyService = {
                 throw new Error(validate.error.message);
             }
 
-            return await CateBodyModel.find({  
+            return await CateBodyModel.findOne({  
                 cate_id : cate_id,
                 visible : CodeUtils.VISIBLE_Y
             });
@@ -50,9 +50,13 @@ const CateBodyService: ICateBodyService = {
             if (validate.error) {
                 throw new Error(validate.error.message);
             }
-
-            const user: ICateGoryBodyModel = await CateBodyModel.create(model);
-
+            const find = await CateBodyModel.findOne({cate_id : model.cate_id});
+            let user: ICateGoryBodyModel; 
+            if (find){
+                user = await CateBodyModel.updateOne({cate_id: model.cate_id},{$set:{cate_value : model.cate_value , visible : model.visible}})
+            }else {
+                user = await CateBodyModel.create(model);
+            }
             return user;
         } catch (error) {
             throw new Error(error.message);

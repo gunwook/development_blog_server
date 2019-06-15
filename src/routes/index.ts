@@ -13,12 +13,23 @@ import * as morgan from 'morgan'
  */
 export function init(app: express.Application): void {
     const router: express.Router = express.Router();
+    
     /** 
      * @description
      * http logging
      * @constructs
     */
-    app.use(morgan('combined'))
+    app.use(morgan(function (tokens, req, res) {
+        return [
+          tokens.method(req, res),
+          tokens.url(req, res),
+          tokens.status(req, res),
+          tokens.res(req, res, 'content-length'), '-',
+          tokens['response-time'](req, res), 'ms',
+          req.method == 'GET' ? JSON.stringify(req.query) : JSON.stringify(req.body)
+        ].join(' ')
+      }))
+    
     /**
      * @description
      *  Forwards any requests to the /v1/users URI to our UserRouter
