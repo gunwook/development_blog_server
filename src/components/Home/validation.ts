@@ -41,7 +41,7 @@ class HomeValidation extends Validation {
     find(
         user_id : string
     ) : Joi.ValidationResult<string>{
-        return Joi.validate(user_id,Joi.number().required())
+        return Joi.validate(user_id,Joi.string().required())
     }
 
     /**
