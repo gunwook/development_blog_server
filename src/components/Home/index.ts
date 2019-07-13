@@ -33,8 +33,8 @@ export async function insertToHome(req : Request, res : Response , next : NextFu
 export async function find(req : Request , res : Response , next : NextFunction){
     try {
         
-        const users : IHomeModel[] = await HomeService.find(String(req.user._id));
-        
+        const users : IHomeModel = await HomeService.find(String(req.user._id));
+       
         res.status(200).json(users)
     } catch (error) {
         next(new HttpError(error.message.status,error.message))

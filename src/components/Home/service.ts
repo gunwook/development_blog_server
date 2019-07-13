@@ -17,7 +17,7 @@ const HomeService: IHomeService = {
      * @param {string} id
      * @returns {Promise < IHomeModel >}
      */
-    async find(id: string): Promise <IHomeModel[]> {
+    async find(id: string): Promise <IHomeModel> {
         try {
             const validate: Joi.ValidationResult <string> = Validation.find(id);
 
@@ -25,7 +25,7 @@ const HomeService: IHomeService = {
                 throw new Error(validate.error.message);
             }
 
-            return await HomeModel.find({
+            return await HomeModel.findOne({
                 user_id : id    
             });
         } catch (error) {
@@ -114,7 +114,7 @@ const HomeService: IHomeService = {
                 user_id : req.body['user_id'],
                 image : concat(query.image,image)
             }
-
+            
             const user: IHomeModel = await HomeModel.updateOne({user_id:  req.body['user_id']},model,{upsert : true})
             return user;
         } catch (error) {

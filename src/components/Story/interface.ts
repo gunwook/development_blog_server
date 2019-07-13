@@ -12,7 +12,7 @@ export interface IStoryService {
      * @returns {Promise<IStoryModel>}
      * @memberof IStoryService
      */
-    find(id: string): Promise<IStoryModel[]>;
+    find(id: string): Promise<IStoryModel>;
 
     /**
      * @param {Request} request

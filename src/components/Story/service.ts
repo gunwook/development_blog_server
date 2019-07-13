@@ -16,7 +16,7 @@ const StoryService: IStoryService = {
      * @returns {Promise < IStoryModel >}
      * @memberof StoryService
      */
-    async find(id: string): Promise <IStoryModel[]> {
+    async find(id: string): Promise <IStoryModel> {
         try {
             const validate: Joi.ValidationResult <string> = Validation.find(id);
 
@@ -24,8 +24,8 @@ const StoryService: IStoryService = {
                 throw new Error(validate.error.message);
             }
 
-            return await StoryModel.find({
-                story_id : id    
+            return await StoryModel.findOne({
+                cate_id : id    
             });
         } catch (error) {
             throw new Error(error.message);
