@@ -34,6 +34,7 @@ export async function insertToStory(req : Request, res : Response , next : NextF
  */
 export async function find(req : Request , res : Response , next : NextFunction){
     try {
+        console.log(req.query)
         const users : IStoryModel = await StoryService.find(req.query.id);
 
         res.status(200).json(users)
