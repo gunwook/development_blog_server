@@ -6,9 +6,9 @@
     "auditLog": "log/.6c1a1f7b9023a40cab0375214d702bb453b1bc33-audit.json",
     "files": [
         {
-            "date": 1562993046867,
-            "name": "log/2019-07-13-smart-push.log",
-            "hash": "c3bab2383defc1183355924a7f898cae"
+            "date": 1569754497120,
+            "name": "log/2019-09-29-smart-push.log",
+            "hash": "8149d84a744e7fe238332f2c0d9e1ead"
         }
     ]
 }
